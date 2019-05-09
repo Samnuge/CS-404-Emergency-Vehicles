@@ -34,8 +34,9 @@ int main() {
 		Emerg_ID[x] = x+1;
 		Person_ID[x] = x+1;
 
+		//-- these numbers need to stay the same so we have the same number of emergency vehicles as requests --//
 		Emerg_type[x] = rand() % 3 + 1;
-		Person_type[x] = rand() % 3 + 1;
+		Person_type[x] = Emerg_type[x];
 
 		Emerg_zip[x] = rand() % 300 + 64000;
 		Person_zip[x] = rand() % 300 + 64000;	
@@ -95,15 +96,48 @@ int main() {
 
 		if (Person_type[v] == 2) {
 
-
-		}
-
-		if (Person_type[v] == 3) {
-
-
+			// -- this looks through to find the lowest vehicles ID -- //
+			for (int g = one; g < two; g++) {
+				
+				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
+					lowest = abs(Person_zip[v] - Temp_zip[g]);
+					lowest_ID = Temp_ID[g];
+				}
+			}
+			// -- this is output and removing item from array --//
+			for (int c = 0; c < sizeof(Temp_ID); c++) {
+				if (lowest_ID == Temp_ID[c]) {
+					cout << "Person ID: " << Person_ID[v] << "	Vehicle request type: " << Person_type[v] << "	Persons ZIP: " << Person_zip[v] << "	**	Emergency Vehicle ID: " << Temp_ID[v] << "	Emergency Vehicle ZIP: " << Temp_zip[v] << "	***		Distance between them: " << abs(Person_zip[v] - Temp_zip[v]) << endl;
+					Temp_ID[c] = 501;
+					Temp_type[c] = 501;
+					Temp_zip[c] = 0;
+					lowest = 500;
+				}
+			}
 		}
 
 	}
+	if (Person_type[v] == 2) {
+
+			// -- this looks through to find the lowest vehicles ID -- //
+			for (int g = two; g < 500; g++) {
+				
+				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
+					lowest = abs(Person_zip[v] - Temp_zip[g]);
+					lowest_ID = Temp_ID[g];
+				}
+			}
+			// -- this is output and removing item from array --//
+			for (int c = 0; c < sizeof(Temp_ID); c++) {
+				if (lowest_ID == Temp_ID[c]) {
+					cout << "Person ID: " << Person_ID[v] << "	Vehicle request type: " << Person_type[v] << "	Persons ZIP: " << Person_zip[v] << "	**	Emergency Vehicle ID: " << Temp_ID[v] << "	Emergency Vehicle ZIP: " << Temp_zip[v] << "	***		Distance between them: " << abs(Person_zip[v] - Temp_zip[v]) << endl;
+					Temp_ID[c] = 501;
+					Temp_type[c] = 501;
+					Temp_zip[c] = 0;
+					lowest = 500;
+				}
+			}
+		}
 	
 
 	return 0;
