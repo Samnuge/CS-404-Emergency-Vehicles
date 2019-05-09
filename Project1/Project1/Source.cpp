@@ -1,6 +1,6 @@
 #include<iostream>
 #include<queue>
-#include <array>
+#include<array>
 #include<fstream>
 #include<cstdlib>
 
@@ -20,6 +20,7 @@ int Person_zip[500];
 int Temp_ID[500];
 int Temp_type[500];
 int Temp_zip[500];
+
 int marker = 0;
 int one = 0;
 int two = 0;
@@ -72,15 +73,14 @@ int main() {
 			two = three;
 		}
 	}
-	one_num = one;
-	two_num = two;
-	three_num = three;
+	
 
 	// --- output  -- //
 	for (int v = 0; v < 500; v++) {
-
+		lowest = 500;
+		lowest_ID = 0;
 		//-- checks if its a 1 vehicle and makes sure that there is a vehicle available -- //
-		if (Person_type[v] == 1 && one_num > 0) {
+		if (Person_type[v] == 1) {
 
 			// -- this looks through to find the lowest vehicles ID -- //
 			for (int g = 0; g < one; g++) {
@@ -91,110 +91,76 @@ int main() {
 					lowest_ID = Temp_ID[g];
 				}
 			}
+
 			// -- this is output and removing item from array --//
-			for (int c = 0; c < sizeof(Temp_ID); c++) {
+			for (int c = 0; c < 500; c++) {
+
 				if (lowest_ID == Temp_ID[c]) {
 					cout << "Person ID: " << Person_ID[v] << "	Vehicle request type: " << Person_type[v] << "	Persons ZIP: " << Person_zip[v] << "	**	Emergency Vehicle ID: " << Temp_ID[v] << "	Emergency Vehicle ZIP: " << Temp_zip[v] << "	***		Distance between them: " << abs(Person_zip[v] - Temp_zip[v]) << endl;
-					Temp_ID[c] = 501;
-					Temp_type[c] = 501;
-					Temp_zip[c] = 0;
-					lowest = 500;
-					one_num--;
-
-					
-					c = sizeof(Temp_ID) ;
+					Temp_ID[v] = 501;
+					Temp_type[v] = 501;
+					Temp_zip[v] = 0;
+				
+					c = 500;
 				}
 			}
 		}
 
-		else if(Person_type[v] == 2 && two_num > 0) {
+		if (Person_type[v] == 2) {
 
 			// -- this looks through to find the lowest vehicles ID -- //
 			for (int g = one; g < two; g++) {
 
+				// -- stores the data for the lowest match to refrence later -- // 
 				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
 					lowest = abs(Person_zip[v] - Temp_zip[g]);
 					lowest_ID = Temp_ID[g];
 				}
 			}
+
 			// -- this is output and removing item from array --//
-			for (int c = 0; c < sizeof(Temp_ID); c++) {
+			for (int c = 0; c < 500; c++) {
+
 				if (lowest_ID == Temp_ID[c]) {
 					cout << "Person ID: " << Person_ID[v] << "	Vehicle request type: " << Person_type[v] << "	Persons ZIP: " << Person_zip[v] << "	**	Emergency Vehicle ID: " << Temp_ID[v] << "	Emergency Vehicle ZIP: " << Temp_zip[v] << "	***		Distance between them: " << abs(Person_zip[v] - Temp_zip[v]) << endl;
-					Temp_ID[c] = 501;
-					Temp_type[c] = 501;
-					Temp_zip[c] = 0;
-					lowest = 500;
-					c = sizeof(Temp_ID);
-					two_num--;
+					Temp_ID[v] = 501;
+					Temp_type[v] = 501;
+					Temp_zip[v] = 0;
+
+					c = 500;
 				}
 			}
 		}
-
-		else if (Person_type[v] == 3 && three_num > 0) {
+		
+		if (Person_type[v] == 3) {
 
 			// -- this looks through to find the lowest vehicles ID -- //
 			for (int g = two; g < 500; g++) {
 
+				// -- stores the data for the lowest match to refrence later -- // 
 				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
 					lowest = abs(Person_zip[v] - Temp_zip[g]);
 					lowest_ID = Temp_ID[g];
 				}
 			}
+
 			// -- this is output and removing item from array --//
-			for (int c = 0; c < sizeof(Temp_ID); c++) {
+			for (int c = 0; c < 500; c++) {
+
 				if (lowest_ID == Temp_ID[c]) {
 					cout << "Person ID: " << Person_ID[v] << "	Vehicle request type: " << Person_type[v] << "	Persons ZIP: " << Person_zip[v] << "	**	Emergency Vehicle ID: " << Temp_ID[v] << "	Emergency Vehicle ZIP: " << Temp_zip[v] << "	***		Distance between them: " << abs(Person_zip[v] - Temp_zip[v]) << endl;
-					Temp_ID[c] = 501;
-					Temp_type[c] = 501;
-					Temp_zip[c] = 0;
-					lowest = 500;
-					c = sizeof(Temp_ID);
+					Temp_ID[v] = 501;
+					Temp_type[v] = 501;
+					Temp_zip[v] = 0;
+
+					c = 500;
 				}
 			}
 		}
-
-		else {
-			for (int g = 0; g < 500; g++) {
-
-				if (Person_type[v] = 1) {
-					one_num--;
-				}
-				if (Person_type[v] = 2) {
-					 two_num--;
-				}
-				if (Person_type[v] = 3) {
-					three_num--;
-				}
-
-				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
-					lowest = abs(Person_zip[v] - Temp_zip[g]);
-					lowest_ID = Temp_ID[g];
-				}
-
-				
-			}
-			// -- this is output and removing item from array --//
-			for (int c = 0; c < sizeof(Temp_ID); c++) {
-				if (lowest_ID == Temp_ID[c]) {
-					cout << "Person ID: " << Person_ID[v] << "	Vehicle request type: " << Person_type[v] << "	Persons ZIP: " << Person_zip[v] << "	**	Emergency Vehicle ID: " << Temp_ID[v] << "	Emergency Vehicle ZIP: " << Temp_zip[v] << "	***		Distance between them: " << abs(Person_zip[v] - Temp_zip[v]) << endl;
-					Temp_ID[c] = 501;
-					Temp_type[c] = 501;
-					Temp_zip[c] = 0;
-					lowest = 500;
-					c = sizeof(Temp_ID);
-				}
-			}
-
-
-
-
-		}
-		
 	
 	}
 	
-
+	system("pause");
 	return 0;
 
 }
