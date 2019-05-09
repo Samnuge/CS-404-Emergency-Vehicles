@@ -24,17 +24,21 @@ int marker = 0;
 int one = 0;
 int two = 0;
 int three = 0;
+int one_num;
+int two_num;
+int three_num;
+
 int lowest = 500;
 int lowest_ID = 0;
 
 int main() {
-	cout << " ***********************************************************************************************************************************" << endl;
+	cout << "***********************************************************************************************************************************" << endl;
 	// --- creates Zip and Vehicle type for each ID --- //
 	for (int x = 0; x < 500; x++) {
 		Emerg_ID[x] = x+1;
 		Person_ID[x] = x+1;
 
-		//-- these numbers need to stay the same so we have the same number of emergency vehicles as requests --//
+		// -- they are the same because we need the same number of ambulances, firetrucks, or police cars -- //
 		Emerg_type[x] = rand() % 3 + 1;
 		Person_type[x] = Emerg_type[x];
 
@@ -60,7 +64,7 @@ int main() {
 		}
 
 // -- these are the number of each vehicle type ie we have 100 ambulances -- //
-		// -- three doesnt need to be changed it will keep that number in memory -- //
+// -- three doesnt need to be changed it will keep that number in memory -- //
 		if (z == 1) {
 			one = three;
 		}
@@ -68,15 +72,20 @@ int main() {
 			two = three;
 		}
 	}
+	one_num = one;
+	two_num = two;
+	three_num = three;
 
 	// --- output  -- //
 	for (int v = 0; v < 500; v++) {
 
-		if (Person_type[v] == 1) {
+		//-- checks if its a 1 vehicle and makes sure that there is a vehicle available -- //
+		if (Person_type[v] == 1 && one_num > 0) {
 
 			// -- this looks through to find the lowest vehicles ID -- //
 			for (int g = 0; g < one; g++) {
-				
+
+				// -- stores the data for the lowest match to refrence later -- // 
 				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
 					lowest = abs(Person_zip[v] - Temp_zip[g]);
 					lowest_ID = Temp_ID[g];
@@ -90,15 +99,19 @@ int main() {
 					Temp_type[c] = 501;
 					Temp_zip[c] = 0;
 					lowest = 500;
+					one_num--;
+
+					
+					c = sizeof(Temp_ID) ;
 				}
 			}
 		}
 
-		if (Person_type[v] == 2) {
+		else if(Person_type[v] == 2 && two_num > 0) {
 
 			// -- this looks through to find the lowest vehicles ID -- //
 			for (int g = one; g < two; g++) {
-				
+
 				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
 					lowest = abs(Person_zip[v] - Temp_zip[g]);
 					lowest_ID = Temp_ID[g];
@@ -112,16 +125,17 @@ int main() {
 					Temp_type[c] = 501;
 					Temp_zip[c] = 0;
 					lowest = 500;
+					c = sizeof(Temp_ID);
+					two_num--;
 				}
 			}
 		}
 
-	}
-	if (Person_type[v] == 3) {
+		else if (Person_type[v] == 3 && three_num > 0) {
 
 			// -- this looks through to find the lowest vehicles ID -- //
 			for (int g = two; g < 500; g++) {
-				
+
 				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
 					lowest = abs(Person_zip[v] - Temp_zip[g]);
 					lowest_ID = Temp_ID[g];
@@ -135,9 +149,50 @@ int main() {
 					Temp_type[c] = 501;
 					Temp_zip[c] = 0;
 					lowest = 500;
+					c = sizeof(Temp_ID);
 				}
 			}
 		}
+
+		else {
+			for (int g = 0; g < 500; g++) {
+
+				if (Person_type[v] = 1) {
+					one_num--;
+				}
+				if (Person_type[v] = 2) {
+					 two_num--;
+				}
+				if (Person_type[v] = 3) {
+					three_num--;
+				}
+
+				if (lowest > abs(Person_zip[v] - Temp_zip[g])) {
+					lowest = abs(Person_zip[v] - Temp_zip[g]);
+					lowest_ID = Temp_ID[g];
+				}
+
+				
+			}
+			// -- this is output and removing item from array --//
+			for (int c = 0; c < sizeof(Temp_ID); c++) {
+				if (lowest_ID == Temp_ID[c]) {
+					cout << "Person ID: " << Person_ID[v] << "	Vehicle request type: " << Person_type[v] << "	Persons ZIP: " << Person_zip[v] << "	**	Emergency Vehicle ID: " << Temp_ID[v] << "	Emergency Vehicle ZIP: " << Temp_zip[v] << "	***		Distance between them: " << abs(Person_zip[v] - Temp_zip[v]) << endl;
+					Temp_ID[c] = 501;
+					Temp_type[c] = 501;
+					Temp_zip[c] = 0;
+					lowest = 500;
+					c = sizeof(Temp_ID);
+				}
+			}
+
+
+
+
+		}
+		
+	
+	}
 	
 
 	return 0;
