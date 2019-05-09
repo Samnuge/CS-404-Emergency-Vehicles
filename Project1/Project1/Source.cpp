@@ -117,7 +117,7 @@ int main() {
 		}
 
 	}
-	if (Person_type[v] == 2) {
+	if (Person_type[v] == 3) {
 
 			// -- this looks through to find the lowest vehicles ID -- //
 			for (int g = two; g < 500; g++) {
